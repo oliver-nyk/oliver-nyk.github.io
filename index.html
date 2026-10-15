@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Yike Niu, Tsinghua University. Research in robot learning, imitation learning, and manipulation.">
+<title>Yike Niu</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="profile-header">
+<div class="profile-inner">
+<div class="avatar"><img src="profile-photo.jpg" alt="Yike Niu" width="1600" height="1200" fetchpriority="high"></div>
+<div class="profile-text">
+<h1>Yike Niu</h1>
+<p class="affiliation">Undergraduate student, Tsinghua University</p>
+<p class="header-links"><a href="Yike_Niu_CV.pdf" target="_blank" rel="noopener">CV</a><span aria-hidden="true"> / </span><a href="https://github.com/oliver-nyk" target="_blank" rel="noopener">GitHub</a><span aria-hidden="true"> / </span><a href="https://x.com/OliverNiuY" target="_blank" rel="noopener">X</a><span aria-hidden="true"> / </span><a href="wechat-qr.jpg" id="wechat-link" aria-haspopup="dialog">WeChat</a></p>
+</div>
+</div>
+</header>
+<main id="main" class="container">
+<section class="bio" aria-label="About me">
+<p>I am an undergraduate student at <a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a>, Weiyang College, studying Mathematics and Physics + Mechanical Engineering. I expect to graduate in 2028. You can reach me at <span class="email-address">nyk24@mails.tsinghua.edu.cn</span> (academic) or <span class="email-address">o14554494@gmail.com</span> (personal).</p>
+<p>My research interests lie in <strong>robot learning and manipulation</strong>, particularly efficient and reliable visuomotor imitation learning. I am also interested in reinforcement learning, policy adaptation and generalization, and vision-language-action models for long-horizon manipulation.</p>
+<p>I conduct robotics research in <a href="http://hxu.rocks/" target="_blank" rel="noopener">Prof. Huazhe Xu</a>’s group at Tsinghua University. My work on AdaTempo involved demonstration processing, policy training, simulation experiments, and real-robot evaluation.</p>
+</section>
+<section id="publications">
+<h2>Publications</h2>
+<p class="section-note">* denotes equal contribution</p>
+<article class="publication">
+<a class="publication-visual" href="adatempo-insertion-conveyor.gif" target="_blank" rel="noopener" aria-label="View AdaTempo animation at full size"><picture><source media="(prefers-reduced-motion: reduce)" srcset="adatempo-preview.jpg"><img src="adatempo-insertion-conveyor.gif" alt="AdaTempo: ALOHA insertion comparison followed by a real-world conveyor task." width="640" height="360" loading="lazy"></picture></a>
+<div class="publication-text">
+<h3><a href="https://arxiv.org/abs/2610.02706" target="_blank" rel="noopener">AdaTempo: Learning Shared Relative Tempo from Demonstrations for Faster Robot Manipulation</a></h3>
+<p class="authors">Jiale Cao*, <strong>Yike Niu*</strong>, Zhengrong Xue, Huazhe Xu</p>
+<p class="venue">Preprint, 2026. Submitted to ICRA 2027.</p>
+<p class="paper-links"><a href="https://arxiv.org/abs/2610.02706" target="_blank" rel="noopener">[Paper]</a> <a href="https://arxiv.org/pdf/2610.02706" target="_blank" rel="noopener">[PDF]</a> <button type="button" id="copy-citation">[BibTeX]</button></p>
+<p class="summary">Learning a shared relative tempo from demonstrations to train faster visuomotor policies, with up to 3.57× execution speedup across an evaluation of 11 simulated and real-world manipulation tasks.</p>
+<p class="role"><strong>My role:</strong> Led robomimic and ALOHA simulation experiments, ACT and Diffusion Policy comparisons, and systematic ablation studies.</p>
+<details><summary>More about my contributions</summary><ul><li>Contributed to method design, demonstration processing, policy training, and hyperparameter tuning.</li><li>Contributed to real-robot system setup, task design, data collection, and evaluation.</li></ul><p>Advisor: Prof. Huazhe Xu</p></details>
+</div>
+</article>
+<article class="publication">
+<a class="publication-visual" href="pam-overview.png" target="_blank" rel="noopener" aria-label="View PAM overview at full size"><img src="pam-overview.png" alt="PAM overview: pose, appearance, and motion generation with quantitative evaluations." width="1827" height="887" loading="lazy"></a>
+<div class="publication-text">
+<h3><a href="https://arxiv.org/abs/2603.22193" target="_blank" rel="noopener">PAM: A Pose–Appearance–Motion Engine for Sim-to-Real HOI Video Generation</a></h3>
+<p class="authors">Mingju Gao, Kaisen Yang, …, <strong>Yike Niu</strong>, …, Hao Zhao</p>
+<p class="venue">IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2026.</p>
+<p class="paper-links"><a href="https://arxiv.org/abs/2603.22193" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/GasaiYU/PAM" target="_blank" rel="noopener">[Code]</a></p>
+<p class="role"><strong>My role:</strong> Processed and converted experimental data; contributed to qualitative analysis, result selection, and figure preparation.</p>
+<p class="dates">Sep – Dec 2025</p>
+</div>
+</article>
+</section>
+<section id="misc">
+<h2>Miscellaneous</h2>
+<p>I enjoy Chinese cooking, baking, fitness, and basketball.</p>
+<p>Languages: Chinese; English (TOEFL iBT 110/120).</p>
+</section>
+<footer>Last updated: October 2026.</footer>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="citation-dialog" aria-labelledby="citation-title"><div class="dialog-heading"><h2 id="citation-title">AdaTempo · BibTeX</h2><button type="button" id="close-citation" aria-label="Close citation">×</button></div><p>Select and copy the citation below.</p><textarea id="citation-text" readonly aria-label="BibTeX citation"></textarea></dialog>
+<dialog id="wechat-dialog" aria-labelledby="wechat-title"><div class="dialog-heading"><h2 id="wechat-title">WeChat</h2><button type="button" id="close-wechat" aria-label="Close WeChat QR code">×</button></div><img class="wechat-qr" src="wechat-qr.jpg" alt="Yike Niu’s WeChat QR code. Scan in WeChat to add as a friend." width="888" height="1191"><p class="wechat-caption">Scan to add me on WeChat.</p></dialog>
+</body>
+</html>
