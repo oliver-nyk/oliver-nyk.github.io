@@ -18,3 +18,7 @@
 .email-address{overflow-wrap:anywhere}#wechat-dialog{width:min(360px,calc(100% - 36px));padding:18px}.wechat-qr{display:block;width:100%;height:auto;max-height:68vh;object-fit:contain;margin:8px auto}.wechat-caption{text-align:center;color:#666;font-size:12px;margin:8px 0 0}
 
 .publication{display:grid;grid-template-columns:240px minmax(0,1fr);column-gap:24px;margin-bottom:32px;align-items:start}.publication-visual{display:block;margin-top:4px}.publication-visual img{display:block;width:100%;height:auto;border:1px solid #e5e5e5}.publication-visual:hover img{border-color:#aaa}.publication-text{min-width:0}@media(max-width:700px){.publication{grid-template-columns:1fr;gap:14px}.publication-visual{width:min(100%,360px);margin-top:0}.publication-visual img{width:100%}}@media print{.publication{grid-template-columns:180px minmax(0,1fr);gap:16px}}
+
+/* Align the profile with the main content and keep contact details compact. */
+@media screen{.profile-inner{width:min(840px,calc(100% - 48px));padding:30px 0}.profile-text .contact{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13px;line-height:1.7;margin:8px 0 0;color:#66717c}.profile-text .contact span{min-width:0;overflow-wrap:anywhere}}
+@media screen and (max-width:600px){.profile-inner{width:calc(100% - 36px);padding:24px 0;gap:16px}.profile-text .contact{flex-direction:column;align-items:center;gap:3px;font-size:12px}}
