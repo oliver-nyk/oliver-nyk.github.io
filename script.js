@@ -54,6 +54,7 @@ wechatDialog.addEventListener('click', (event) => {
   style.id = 'site-preferences-styles';
   style.textContent = ':root{color-scheme:light;--page:#fff;--panel:#f7f8fa;--ink:#292824;--muted:#68675f;--line:#deded8;--link:#1767a5;--field:#fff;--code:#f7f7f3}:root[data-theme="dark"]{color-scheme:dark;--page:#1c1c1a;--panel:#242422;--ink:#e8e6df;--muted:#b6b4aa;--line:#44443f;--link:#91bde0;--field:#30302c;--code:#262623}body{background:var(--page);color:var(--ink);font-family:Georgia,"Times New Roman","Songti SC","Noto Serif CJK SC",serif;font-size:16px;line-height:1.75}.profile-header{background:var(--panel);color:var(--ink)}a,button,summary,.profile-text a{color:var(--link)}h1,h2,h3{font-family:Georgia,"Times New Roman","Songti SC",serif}.profile-text h1{font-weight:400}.profile-text .affiliation{font-size:19px}.header-links,.contact,.paper-links,.site-controls{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}.section-note,.dates,.coursework,details,footer,.profile-text .contact,.wechat-caption{color:var(--muted)}h2,footer,dialog,.publication-visual img{border-color:var(--line)}dialog{background:var(--panel);color:var(--ink)}textarea{background:var(--code);color:var(--ink);border-color:var(--line)}.skip{background:var(--page)}a:focus-visible,button:focus-visible,summary:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--link);outline-offset:3px}.site-controls{width:min(840px,calc(100% - 48px));margin:0 auto;padding-top:12px;display:flex;justify-content:flex-end;gap:10px}.site-controls select{max-width:100%;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 10px;font:13px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;cursor:pointer}.profile-inner{padding-top:12px;padding-bottom:24px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:600px){body{font-size:15px}.site-controls{width:calc(100% - 36px);gap:8px}.profile-inner{padding-top:14px;padding-bottom:24px}.profile-text .affiliation{font-size:17px}:lang(zh-CN) .bio{line-height:1.9}}@media print{.site-controls{display:none}:root{--page:#fff;--panel:#fff;--ink:#222;--muted:#555;--line:#ddd;--link:#222}body{font-size:11px}.profile-inner{padding-top:10px}}';
   style.textContent += ".site-controls{gap:8px}.site-controls .icon-toggle{width:36px;height:36px;display:inline-grid;place-items:center;position:relative;padding:0;border:1px solid transparent;border-radius:50%;background:transparent;color:var(--ink);cursor:pointer;flex:none}.site-controls .icon-toggle:hover{background:var(--field);border-color:var(--line);text-decoration:none}.icon-toggle svg{width:21px;height:21px;grid-area:1/1;pointer-events:none;transition:opacity .4s ease,transform .5s cubic-bezier(.2,.7,.2,1)}.theme-toggle .sun{opacity:1;transform:rotate(0) scale(1)}.theme-toggle .moon{opacity:0;transform:rotate(-80deg) scale(.5)}:root[data-theme=\"dark\"] .theme-toggle .sun{opacity:0;transform:rotate(90deg) scale(.5)}:root[data-theme=\"dark\"] .theme-toggle .moon{opacity:1;transform:rotate(0) scale(1)}.language-toggle span{grid-area:1/1;font:600 16px/1 -apple-system,BlinkMacSystemFont,\"Segoe UI\",\"PingFang SC\",sans-serif;transition:opacity .2s ease,transform .2s ease}.language-toggle .lang-en{opacity:1;transform:translateY(0)}.language-toggle .lang-zh{opacity:0;transform:translateY(4px)}:root:lang(zh-CN) .language-toggle .lang-en{opacity:0;transform:translateY(-4px)}:root:lang(zh-CN) .language-toggle .lang-zh{opacity:1;transform:translateY(0)}.theme-transitions body,.theme-transitions .profile-header,.theme-transitions dialog,.theme-transitions textarea,.theme-transitions .site-controls button,.theme-transitions a,.theme-transitions summary,.theme-transitions h2,.theme-transitions footer,.theme-transitions .publication-visual img,.theme-transitions .section-note,.theme-transitions details,.theme-transitions .contact{transition:background-color .45s ease,color .4s ease,border-color .4s ease}@media(prefers-reduced-motion:reduce){.theme-transitions *,.icon-toggle svg,.language-toggle span{transition:none!important}}";
+  style.textContent += ".profile-text h1{font-size:44px;line-height:1.12;letter-spacing:-.025em;font-weight:400;margin-bottom:12px}.profile-text .affiliation{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"PingFang SC\",sans-serif;font-size:17px;line-height:1.55;color:var(--muted);margin-bottom:13px}h2{font-size:25px;font-weight:400;letter-spacing:-.015em;margin-top:34px;padding-bottom:9px}.section-note{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"PingFang SC\",sans-serif;font-size:12px}.publication h3{font-size:18px;line-height:1.45;font-weight:400;letter-spacing:-.01em;margin:0 0 7px}.publication .authors{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"PingFang SC\",sans-serif;font-size:13px;line-height:1.7;color:var(--muted);margin:0 0 3px}.publication .authors strong{color:var(--ink);font-weight:600}.publication .venue{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"PingFang SC\",sans-serif;font-size:12.5px;line-height:1.65;font-style:normal;color:var(--muted);margin:0 0 10px}.publication .summary{font-size:15px;line-height:1.75;margin-top:11px}.publication .role{font-size:13px;line-height:1.75;color:var(--muted);margin-top:9px}.publication .role strong{color:var(--ink);font-weight:600}.publication details{font-size:12.5px;margin-top:10px}.publication .paper-links{gap:7px;margin:10px 0 11px;align-items:center}.paper-links a,.paper-links button{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:30px;padding:4px 8px;border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--link);font-size:12px;font-weight:500;line-height:1.5;text-decoration:none}.paper-links a:hover,.paper-links button:hover{background:var(--panel);border-color:var(--link);text-decoration:none}.paper-links svg{width:14px;height:14px;flex:none;pointer-events:none}.resource-label{white-space:nowrap}.publication{margin-bottom:36px}@media(max-width:600px){.profile-text h1{font-size:34px}.profile-text .affiliation{font-size:15px}.publication h3{font-size:17px}.publication .summary{font-size:14px}h2{font-size:23px}.paper-links a,.paper-links button{min-height:34px;padding:5px 9px}}@media print{.profile-text h1{font-size:28px}.publication h3{font-size:14px}.publication .summary{font-size:11px}.paper-links a,.paper-links button{padding:0;border:0;min-height:0}.paper-links svg{display:none}}";
   document.head.append(style);
   const controls = document.createElement('div');
   controls.className = 'site-controls';
@@ -106,6 +107,34 @@ wechatDialog.addEventListener('click', (event) => {
     ['#citation-text','aria-label','BibTeX 引用'],
     ['.wechat-qr','alt','Yike Niu 的微信二维码，使用微信扫码添加好友。']
   ].flatMap(([selector,attribute,zh]) => Array.from(document.querySelectorAll(selector), node => ({node,attribute,en:node.getAttribute(attribute),zh})));
+  function decorateResources() {
+    document.querySelectorAll('.paper-links a,.paper-links button').forEach(node => {
+      if (node.querySelector('.resource-label')) return;
+      let label = node.textContent.trim().replace(/^\[|\]$/g,'');
+      const kind = node.id === 'copy-citation' ? 'citation' : label === 'PDF' ? 'pdf' : /Code|代码/.test(label) ? 'code' : /Project|项目/.test(label) ? 'project' : 'paper';
+      if (label === 'Project Website') label = 'Project';
+      const paths = {
+        project: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/>',
+        paper: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h6"/>',
+        pdf: '<path d="M12 3v12m-4-4 4 4 4-4M5 17v4h14v-4"/>',
+        code: '<path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/>',
+        citation: '<rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H4v13h4"/>'
+      };
+      const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      svg.setAttribute('viewBox','0 0 24 24');
+      svg.setAttribute('fill','none');
+      svg.setAttribute('stroke','currentColor');
+      svg.setAttribute('stroke-width','1.6');
+      svg.setAttribute('stroke-linecap','round');
+      svg.setAttribute('stroke-linejoin','round');
+      svg.setAttribute('aria-hidden','true');
+      svg.innerHTML = paths[kind];
+      const text = document.createElement('span');
+      text.className = 'resource-label';
+      text.textContent = label;
+      node.replaceChildren(svg,text);
+    });
+  }
   function updateButtons() {
     const zh = root.lang === 'zh-CN';
     const dark = root.dataset.theme === 'dark';
@@ -124,6 +153,7 @@ wechatDialog.addEventListener('click', (event) => {
     updateButtons();
     entries.forEach(entry => { entry.node.innerHTML = zh ? entry.zh : entry.en; });
     attributes.forEach(entry => { entry.node.setAttribute(entry.attribute,zh ? entry.zh : entry.en); });
+    decorateResources();
     const description = document.querySelector('meta[name="description"]');
     description.content = zh ? 'Yike Niu，清华大学本科生。研究方向：机器人学习、模仿学习与机器人操作。' : 'Yike Niu, Tsinghua University. Research in robot learning, imitation learning, and manipulation.';
   }
