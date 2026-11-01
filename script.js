@@ -43,3 +43,85 @@ wechatDialog.addEventListener('click', (event) => {
     if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) wechatDialog.close();
   }
 });
+
+
+// Display preferences and bilingual content. Original English markup is retained for switching back.
+(() => {
+  const root = document.documentElement;
+  const readPreference = (key, fallback) => { try { return localStorage.getItem(key) || fallback; } catch { return fallback; } };
+  const savePreference = (key, value) => { try { localStorage.setItem(key, value); } catch {} };
+  const style = document.createElement('style');
+  style.id = 'site-preferences-styles';
+  style.textContent = ':root{color-scheme:light;--page:#fff;--panel:#f7f8fa;--ink:#292824;--muted:#68675f;--line:#deded8;--link:#1767a5;--field:#fff;--code:#f7f7f3}:root[data-theme="dark"]{color-scheme:dark;--page:#1c1c1a;--panel:#242422;--ink:#e8e6df;--muted:#b6b4aa;--line:#44443f;--link:#91bde0;--field:#30302c;--code:#262623}body{background:var(--page);color:var(--ink);font-family:Georgia,"Times New Roman","Songti SC","Noto Serif CJK SC",serif;font-size:16px;line-height:1.75}.profile-header{background:var(--panel);color:var(--ink)}a,button,summary,.profile-text a{color:var(--link)}h1,h2,h3{font-family:Georgia,"Times New Roman","Songti SC",serif}.profile-text h1{font-weight:400}.profile-text .affiliation{font-size:19px}.header-links,.contact,.paper-links,.site-controls{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}.section-note,.dates,.coursework,details,footer,.profile-text .contact,.wechat-caption{color:var(--muted)}h2,footer,dialog,.publication-visual img{border-color:var(--line)}dialog{background:var(--panel);color:var(--ink)}textarea{background:var(--code);color:var(--ink);border-color:var(--line)}.skip{background:var(--page)}a:focus-visible,button:focus-visible,summary:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--link);outline-offset:3px}.site-controls{width:min(840px,calc(100% - 48px));margin:0 auto;padding-top:12px;display:flex;justify-content:flex-end;gap:10px}.site-controls select{max-width:100%;background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 10px;font:13px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;cursor:pointer}.profile-inner{padding-top:12px;padding-bottom:24px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:600px){body{font-size:15px}.site-controls{width:calc(100% - 36px);gap:8px}.profile-inner{padding-top:14px;padding-bottom:24px}.profile-text .affiliation{font-size:17px}:lang(zh-CN) .bio{line-height:1.9}}@media print{.site-controls{display:none}:root{--page:#fff;--panel:#fff;--ink:#222;--muted:#555;--line:#ddd;--link:#222}body{font-size:11px}.profile-inner{padding-top:10px}}';
+  document.head.append(style);
+  const controls = document.createElement('div');
+  controls.className = 'site-controls';
+  controls.innerHTML = '<label><span class="sr-only" id="theme-label">Appearance</span><select id="theme-select" aria-labelledby="theme-label"><option value="light">Light</option><option value="dark">Dark</option></select></label><label><span class="sr-only" id="language-label">Language</span><select id="language-select" aria-labelledby="language-label"><option value="en">English</option><option value="zh-CN">中文</option></select></label>';
+  document.querySelector('.profile-header').prepend(controls);
+  const themeSelect = document.getElementById('theme-select');
+  const languageSelect = document.getElementById('language-select');
+  const translations = [
+    ['.affiliation', '清华大学本科生'],
+    ['.bio p:nth-child(1)', '我是<a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">清华大学</a>未央书院本科生，修读数理基础科学与机械工程双学士学位，预计于 2028 年毕业。'],
+    ['.bio p:nth-child(2)', '我的研究兴趣是<strong>机器人学习与操作</strong>，尤其关注高效、可靠的视觉运动模仿学习。我也对强化学习、策略适应与泛化，以及用于长时程操作的视觉-语言-动作模型感兴趣。'],
+    ['.bio p:nth-child(3)', '我在清华大学<a href="http://hxu.rocks/" target="_blank" rel="noopener">许华哲教授</a>的课题组从事机器人研究。在 AdaTempo 项目中，我参与了示范数据处理、策略训练、仿真实验和真实机器人评估。'],
+    ['.bio p:nth-child(4)', '科研之外，我喜欢做饭，尤其擅长川菜，也喜欢烘焙。我还喜欢打篮球、健身，目前正在学习网球。'],
+    ['.contact span:nth-child(1)', '<a href="mailto:nyk24@mails.tsinghua.edu.cn">nyk24@mails.tsinghua.edu.cn</a>（学术邮箱）'],
+    ['.contact span:nth-child(2)', '<a href="mailto:o14554494@gmail.com">o14554494@gmail.com</a>（个人邮箱）'],
+    ['.skip', '跳至正文'],
+    ['#publications > h2', '学术论文'],
+    ['.section-note', '* 表示共同第一作者'],
+    ['.publication:nth-of-type(1) h3 a', 'AdaTempo：从示范中学习共享相对节奏，加速机器人操作'],
+    ['.publication:nth-of-type(1) .venue', '预印本，2026。已投稿至 ICRA 2027。'],
+    ['.publication .summary', '从示范数据中学习共享的相对节奏，训练更快的视觉运动策略。在 11 项仿真与真实机器人操作任务的评估中，执行速度最高提升至 3.57 倍。'],
+    ['.publication:nth-of-type(1) .role', '<strong>我的工作：</strong>主导 robomimic 和 ALOHA 仿真实验、ACT 与 Diffusion Policy 对比实验，以及系统性消融研究。'],
+    ['details summary', '更多个人贡献'],
+    ['details li:nth-child(1)', '参与方法设计、示范数据处理、策略训练和超参数调优。'],
+    ['details li:nth-child(2)', '参与真实机器人系统搭建、任务设计、数据采集与评估。'],
+    ['details > p', '导师：许华哲教授'],
+    ['.publication:nth-of-type(2) h3 a', 'PAM：用于仿真到现实人-物交互视频生成的姿态、外观与运动引擎'],
+    ['.publication:nth-of-type(2) .venue', 'IEEE/CVF 计算机视觉与模式识别会议（CVPR），2026。'],
+    ['.publication:nth-of-type(2) .role', '<strong>我的工作：</strong>处理和转换实验数据；参与定性分析、结果筛选及论文图表制作。'],
+    ['.publication .dates', '2025 年 9 月至 12 月'],
+    ['#misc > h2', '其他信息'],
+    ['#misc > p', '语言：中文；英语（托福 iBT 110/120）。'],
+    ['footer', '最后更新：2026 年 11 月。'],
+    ['#citation-title', 'AdaTempo · 引用格式'],
+    ['#citation-dialog > p', '选中并复制下方的引用信息。'],
+    ['#wechat-title', '微信'],
+    ['.wechat-caption', '扫描二维码添加我的微信。'],
+    ['#theme-label', '外观'],
+    ['#language-label', '语言'],
+    ['#theme-select option[value="light"]', '浅色'],
+    ['#theme-select option[value="dark"]', '深色']
+  ];
+  const entries = translations.flatMap(([selector, zh]) => Array.from(document.querySelectorAll(selector), node => ({node, en:node.innerHTML, zh})));
+  const linkLabels = {'CV':'简历','WeChat':'微信','[Project Website]':'[项目主页]','[Paper]':'[论文]','[PDF]':'[PDF]','[Code]':'[代码]'};
+  document.querySelectorAll('.header-links a,.paper-links a').forEach(node => { const en = node.textContent; if (linkLabels[en]) entries.push({node,en,zh:linkLabels[en]}); });
+  const attributes = [
+    ['.bio','aria-label','关于我'],
+    ['.publication:nth-of-type(1) .publication-visual','aria-label','查看 AdaTempo 动画原图'],
+    ['.publication:nth-of-type(2) .publication-visual','aria-label','查看 PAM 方法概览原图'],
+    ['.publication:nth-of-type(1) img','alt','AdaTempo：ALOHA 插入任务对比及真实机器人传送带任务。'],
+    ['.publication:nth-of-type(2) img','alt','PAM：姿态、外观与运动生成方法及定量评估。'],
+    ['#close-citation','aria-label','关闭引用弹窗'],
+    ['#close-wechat','aria-label','关闭微信二维码'],
+    ['#citation-text','aria-label','BibTeX 引用'],
+    ['.wechat-qr','alt','Yike Niu 的微信二维码，使用微信扫码添加好友。']
+  ].flatMap(([selector,attribute,zh]) => Array.from(document.querySelectorAll(selector), node => ({node,attribute,en:node.getAttribute(attribute),zh})));
+  function setTheme(theme) { root.dataset.theme = theme === 'dark' ? 'dark' : 'light'; themeSelect.value = root.dataset.theme; }
+  function setLanguage(language) {
+    const zh = language === 'zh-CN';
+    root.lang = zh ? 'zh-CN' : 'en';
+    languageSelect.value = root.lang;
+    entries.forEach(entry => { entry.node.innerHTML = zh ? entry.zh : entry.en; });
+    attributes.forEach(entry => { entry.node.setAttribute(entry.attribute,zh ? entry.zh : entry.en); });
+    const description = document.querySelector('meta[name="description"]');
+    description.content = zh ? 'Yike Niu，清华大学本科生。研究方向：机器人学习、模仿学习与机器人操作。' : 'Yike Niu, Tsinghua University. Research in robot learning, imitation learning, and manipulation.';
+  }
+  themeSelect.addEventListener('change', () => { setTheme(themeSelect.value); savePreference('yike-theme',root.dataset.theme); });
+  languageSelect.addEventListener('change', () => { setLanguage(languageSelect.value); savePreference('yike-language',root.lang); });
+  setTheme(readPreference('yike-theme','light'));
+  setLanguage(readPreference('yike-language','en'));
+  new MutationObserver(() => { if (root.lang === 'zh-CN' && toast.textContent === 'BibTeX copied to clipboard') toast.textContent = 'BibTeX 已复制到剪贴板'; }).observe(toast,{childList:true});
+})();
