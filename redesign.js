@@ -51,11 +51,100 @@
   updateNav();
   window.addEventListener('scroll', updateNav, {passive:true});
   window.addEventListener('resize', updateNav);
-  // Reveal each card once. Reduced-motion visitors see it immediately.
-  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.remove('reveal-pending'); observer.unobserve(entry.target); }
-    }), {threshold:0.08});
-    document.querySelectorAll('.publication').forEach(card => { card.classList.add('reveal-pending'); observer.observe(card); });
+  // Motion enhances the existing layout; content remains visible without it.
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  const wideViewport = matchMedia('(min-width: 801px)');
+  const runningAnimations = new Set();
+  const seen = new WeakSet();
+  const ease = 'cubic-bezier(.16,1,.3,1)';
+  function reveal(node, delay = 0, distance = 30) {
+    if (motionPreference.matches || typeof node.animate !== 'function') return;
+    const animation = node.animate([
+      {opacity:0, transform:`translate3d(0,${distance}px,0)`},
+      {opacity:1, transform:'translate3d(0,0,0)'}
+    ], {duration:950, delay, easing:ease, fill:'backwards'});
+    runningAnimations.add(animation);
+    // Release temporary effects even if a browser suspends its animation timeline.
+    const fallback = setTimeout(() => animation.cancel(), 1200 + delay);
+    animation.onfinish = animation.oncancel = () => {
+      clearTimeout(fallback);
+      runningAnimations.delete(animation);
+    };
   }
+  // Separate foreground elements enter in a short sequence.
+  if (scrollY < 80) {
+    const entrance = [hero.querySelector('.avatar'), ...hero.querySelectorAll('.profile-text > *'), ...bio.children, cue];
+    entrance.forEach((node, index) => reveal(node, 70 + index * 65, index ? 22 : 16));
+  }
+  const revealTargets = document.querySelectorAll('.section-heading,.research-intro > p,#publications > h2,.section-note,.publication,#misc');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting || seen.has(entry.target)) return;
+        seen.add(entry.target);
+        observer.unobserve(entry.target);
+        if (entry.boundingClientRect.top > 0) reveal(entry.target, 0, entry.target.matches('.publication') ? 42 : 30);
+      });
+    }, {threshold:0, rootMargin:'0px 0px -8% 0px'});
+    revealTargets.forEach(node => observer.observe(node));
+  }
+  // One frame per scroll update; no continuously running animation loop.
+  const navLinks = [...nav.querySelectorAll('[data-nav]')];
+  const sections = [hero, research, document.querySelector('#publications')];
+  let metrics = {heroHeight:hero.offsetHeight, total:1, starts:[]};
+  let scheduled = false;
+  let frameId = 0;
+  let frameFallback = 0;
+  let activeSection = '';
+  function measure() {
+    metrics = {
+      heroHeight:hero.offsetHeight,
+      total:Math.max(1, document.documentElement.scrollHeight - innerHeight),
+      starts:sections.map(section => section.getBoundingClientRect().top + scrollY)
+    };
+    scheduleFrame();
+  }
+  function renderFrame() {
+    clearTimeout(frameFallback);
+    scheduled = false;
+    const y = Math.max(0, scrollY);
+    const progress = Math.min(1, y / metrics.heroHeight);
+    const moving = !motionPreference.matches && wideViewport.matches;
+    hero.style.setProperty('--photo-y', moving ? `${progress * 26}px` : '0px');
+    hero.style.setProperty('--photo-scale', moving ? 1 + progress * .08 : 1);
+    content.style.transform = moving ? `translate3d(0,${-progress * 22}px,0)` : '';
+    content.style.opacity = moving ? 1 - progress * .45 : '';
+    nav.style.setProperty('--reading-progress', Math.min(1, y / metrics.total));
+    let current = 0;
+    metrics.starts.forEach((top, index) => { if (y + innerHeight * .36 >= top) current = index; });
+    const id = sections[current].id;
+    if (activeSection !== id) {
+      activeSection = id;
+      navLinks.forEach(link => {
+        if (link.hash === `#${id}`) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }
+  }
+  function scheduleFrame() {
+    if (scheduled) return;
+    scheduled = true;
+    frameId = requestAnimationFrame(renderFrame);
+    // Keep navigation correct when background tabs throttle animation frames.
+    frameFallback = setTimeout(() => {
+      cancelAnimationFrame(frameId);
+      renderFrame();
+    }, 120);
+  }
+  motionPreference.addEventListener('change', () => {
+    if (motionPreference.matches) runningAnimations.forEach(animation => animation.cancel());
+    scheduleFrame();
+  });
+  wideViewport.addEventListener('change', measure);
+  addEventListener('scroll', scheduleFrame, {passive:true});
+  addEventListener('resize', measure, {passive:true});
+  addEventListener('pageshow', measure);
+  if ('ResizeObserver' in window) new ResizeObserver(measure).observe(document.body);
+  document.fonts?.ready.then(measure);
+  measure();
 })();
