@@ -65,7 +65,7 @@ wechatDialog.addEventListener('click', (event) => {
   const translations = [
     ['.affiliation', '清华大学本科生'],
     ['.bio p:nth-child(1)', '我是<a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">清华大学</a>未央书院本科生，修读数理基础科学与机械工程双学士学位，预计于 2028 年毕业。'],
-    ['.bio p:nth-child(2)', '我主要关注<strong>视觉运动模仿学习</strong>，研究如何从示范中学到将视觉观察转化为机器人动作的策略。在 AdaTempo 项目中，我参与策略训练与评估，关注如何让机器人更快地完成操作。我也希望探索已学技能对新场景的适应，以及如何结合强化学习和视觉-语言-动作模型，让机器人完成更长的动作序列。'],
+    ['.bio p:nth-child(2)', '我对<strong>机器人学习与操作</strong>感兴趣，尤其关注如何提高视觉运动模仿学习的效率与可靠性。此外，我也希望探索强化学习、策略适应与泛化，以及面向长时程操作的视觉-语言-动作模型。'],
     ['.bio p:nth-child(3)', '我在清华大学<a href="http://hxu.rocks/" target="_blank" rel="noopener">许华哲教授</a>的课题组从事机器人研究。在 AdaTempo 项目中，我参与了示范数据处理、策略训练、仿真实验和真实机器人评估。'],
     ['.bio p:nth-child(4)', '科研之外，我喜欢做饭，尤其擅长川菜，也喜欢烘焙。我还喜欢打篮球、健身，目前正在学习网球。'],
     ['.skip', '跳至正文'],

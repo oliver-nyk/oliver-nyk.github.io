@@ -71,16 +71,16 @@
     section.classList.add('scroll-chapter');
     return {section, title, body, runway};
   });
-  const englishLead = 'From human demonstrations to faster robot manipulation.';
+  const englishLead = 'I’m interested in learning methods that make robot manipulation more efficient and dependable.';
   function translateLayout() {
     const zh = document.documentElement.lang === 'zh-CN';
     decorateProfileLinks(zh);
     nav.setAttribute('aria-label', zh ? '主导航' : 'Main navigation');
     nav.querySelector('[data-nav="about"]').textContent = zh ? '关于我' : 'About';
-    nav.querySelector('[data-nav="research"]').textContent = zh ? '研究' : 'Research';
+    nav.querySelector('[data-nav="research"]').textContent = zh ? '研究兴趣' : 'Interest';
     nav.querySelector('[data-nav="publications"]').textContent = zh ? '论文' : 'Publications';
-    research.querySelector('h2').textContent = zh ? '研究方向' : 'Research';
-    research.querySelector('.research-lead').textContent = zh ? '从人类示范出发，让机器人更快地完成操作。' : englishLead;
+    research.querySelector('h2').textContent = zh ? '研究兴趣' : 'Interest';
+    research.querySelector('.research-lead').textContent = zh ? '我对让机器人操作更高效、更可靠的学习方法感兴趣。' : englishLead;
     cue.textContent = zh ? '向下探索 ↓' : 'Explore ↓';
   }
   translateLayout();
