@@ -14,6 +14,16 @@
   const nav = document.createElement('nav');
   nav.className = 'site-nav';
   nav.innerHTML = '<div class="nav-sections"><a href="#intro" data-nav="about"></a><a href="#research" data-nav="research"></a><a href="#publications" data-nav="publications"></a></div>';
+  const home = document.createElement('a');
+  home.className = 'nav-home';
+  home.href = '#intro';
+  home.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h5v-6h4v6h5V9"/></svg>';
+  home.addEventListener('click', event => {
+    event.preventDefault();
+    history.replaceState(null, '', '#intro');
+    window.scrollTo({top:0, behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  });
+  nav.prepend(home);
   nav.append(document.querySelector('.site-controls'));
   document.body.prepend(nav);
   const research = document.createElement('section');
@@ -76,6 +86,8 @@
     const zh = document.documentElement.lang === 'zh-CN';
     decorateProfileLinks(zh);
     nav.setAttribute('aria-label', zh ? '主导航' : 'Main navigation');
+    home.setAttribute('aria-label', zh ? '首页 · 回到顶部' : 'Home · Back to top');
+    home.title = zh ? '回到顶部' : 'Back to top';
     nav.querySelector('[data-nav="about"]').textContent = zh ? '关于我' : 'About';
     nav.querySelector('[data-nav="research"]').textContent = zh ? '研究兴趣' : 'Research';
     nav.querySelector('[data-nav="publications"]').textContent = zh ? '论文' : 'Publications';

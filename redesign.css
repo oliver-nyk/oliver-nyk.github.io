@@ -150,3 +150,15 @@ body{font-family:var(--sans);font-size:15px;font-weight:400;line-height:1.8;back
   #publications .publication h3{font-size:25px}
   #publications .publication .authors{font-size:14px}
 }
+
+/* Let the first screen fill the viewport instead of exposing the next chapter. */
+@media screen{
+  .profile-header,.profile-inner{min-height:100vh;min-height:100dvh}
+}
+.site-nav .nav-home{display:inline-flex;align-items:center;justify-content:center;flex:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--nav-glass-rim);background:linear-gradient(140deg,var(--nav-glass-shine),transparent 65%),var(--nav-glass-fill);box-shadow:0 8px 28px rgba(0,0,0,.12),inset 0 1px 0 var(--nav-glass-shine),inset 0 -1px 0 rgba(255,255,255,.07);-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%);transition:transform .35s,background .35s,box-shadow .35s}
+.nav-home svg{width:23px;height:23px;pointer-events:none}
+@media(hover:hover){.site-nav .nav-home:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.16),inset 0 1px 0 var(--nav-glass-shine);text-decoration:none}}
+.site-nav .nav-home:active{transform:scale(.94)}
+@media(max-width:560px){.site-nav{gap:7px}.site-nav .nav-home{width:36px;height:36px}.nav-home svg{width:20px;height:20px}.nav-sections{margin-left:auto}.nav-sections a{padding:8px 6px}}
+@media(prefers-reduced-motion:reduce){.site-nav .nav-home{transition:none}.site-nav .nav-home:hover,.site-nav .nav-home:active{transform:none}}
+@media(prefers-reduced-transparency:reduce){.site-nav .nav-home{background:var(--panel);color:var(--ink)!important;-webkit-backdrop-filter:none;backdrop-filter:none}}
