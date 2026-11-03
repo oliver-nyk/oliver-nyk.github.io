@@ -33,9 +33,50 @@
     const links = text.querySelector('.paper-links');
     text.append(links);
   });
+  // Keep the original anchors and headings so existing dialogs and translations survive.
+  const profileLinks = [...hero.querySelectorAll('.header-links a')];
+  const iconPaths = [
+    '<g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h6"/></g>',
+    '<path fill="currentColor" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.29-5.13-1.25-5.13-5.54 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.42.11-2.96 0 0 .95-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.13-1.45 3.08-1.15 3.08-1.15.61 1.54.23 2.68.11 2.96.72.78 1.16 1.78 1.16 3 0 4.3-2.64 5.25-5.15 5.53.4.35.76 1.03.76 2.08v3.11c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/>',
+    '<path fill="currentColor" d="M18.9 2H22l-6.8 7.77L23.2 22h-6.3L12 14.58 5.5 22H2.3l8.2-9.37L2.8 2h6.46l4.43 6.77L18.9 2zM17.8 20h1.73L8.3 3.87H6.45z"/>',
+    '<path fill="currentColor" d="M9.1 3C4.6 3 1 5.8 1 9.3c0 1.9 1.1 3.7 3 4.9l-.8 2.5 2.9-1.5c.9.3 1.8.4 2.7.4a5.8 5.8 0 0 1-.3-1.8c0-3.6 3.4-6.5 7.6-6.5h.7C15.6 4.8 12.6 3 9.1 3zm-2.7 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm5.2 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/><path fill="currentColor" d="M23 13.8c0-2.9-3-5.2-6.7-5.2s-6.7 2.3-6.7 5.2S12.6 19 16.3 19c.8 0 1.5-.1 2.2-.3l2.4 1.3-.6-2.1c1.7-.9 2.7-2.4 2.7-4.1zm-9-1.7a.85.85 0 1 1 0 1.7.85.85 0 0 1 0-1.7zm4.5 0a.85.85 0 1 1 0 1.7.85.85 0 0 1 0-1.7z"/>'
+  ];
+  function decorateProfileLinks(zh) {
+    profileLinks.forEach((link, index) => {
+      const label = [zh ? '简历' : 'CV', 'GitHub', 'X', zh ? '微信' : 'WeChat'][index];
+      if (link.querySelector('.social-label')?.textContent === label) return;
+      link.classList.add('social-glass');
+      link.setAttribute('aria-label', label);
+      link.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${iconPaths[index]}</svg><span class="social-label">${label}</span>`;
+    });
+  }
+  const publications = document.querySelector('#publications');
+  const chapters = [research, publications].map((section, index) => {
+    const heading = section.querySelector('h2');
+    const body = document.createElement('div');
+    body.className = 'chapter-body';
+    if (index === 0) body.append(section.querySelector('.research-intro'));
+    else body.append(...[...section.children].filter(node => node !== heading));
+    const title = document.createElement('div');
+    title.className = 'chapter-title-motion';
+    const number = document.createElement('span');
+    number.className = 'chapter-number';
+    number.textContent = `0${index + 1}`;
+    title.append(number, heading);
+    const pin = document.createElement('div');
+    pin.className = 'chapter-heading';
+    pin.append(title);
+    const runway = document.createElement('div');
+    runway.className = 'chapter-runway';
+    runway.setAttribute('aria-hidden', 'true');
+    section.replaceChildren(pin, runway, body);
+    section.classList.add('scroll-chapter');
+    return {section, title, body, runway};
+  });
   const englishLead = 'I study how robots can learn to manipulate the world efficiently and reliably.';
   function translateLayout() {
     const zh = document.documentElement.lang === 'zh-CN';
+    decorateProfileLinks(zh);
     nav.setAttribute('aria-label', zh ? '主导航' : 'Main navigation');
     nav.querySelector('[data-nav="about"]').textContent = zh ? '关于我' : 'About';
     nav.querySelector('[data-nav="research"]').textContent = zh ? '研究' : 'Research';
@@ -46,7 +87,7 @@
     cue.textContent = zh ? '向下探索 ↓' : 'Explore ↓';
   }
   translateLayout();
-  new MutationObserver(translateLayout).observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
+  new MutationObserver(() => { translateLayout(); measure(); }).observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
   function updateNav() { nav.classList.toggle('scrolled', window.scrollY > hero.offsetHeight - nav.offsetHeight); }
   updateNav();
   window.addEventListener('scroll', updateNav, {passive:true});
@@ -76,7 +117,7 @@
     const entrance = [hero.querySelector('.avatar'), ...hero.querySelectorAll('.profile-text > *'), ...bio.children, cue];
     entrance.forEach((node, index) => reveal(node, 70 + index * 65, index ? 22 : 16));
   }
-  const revealTargets = document.querySelectorAll('.section-heading,.research-intro > p,#publications > h2,.section-note,.publication,#misc');
+  const revealTargets = document.querySelectorAll('.publication,#misc');
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -108,6 +149,25 @@
     clearTimeout(frameFallback);
     scheduled = false;
     const y = Math.max(0, scrollY);
+    chapters.forEach(({section, title, body, runway}) => {
+      const distance = Math.max(1, runway.offsetHeight);
+      const top = section.getBoundingClientRect().top;
+      const raw = Math.max(0, Math.min(1, (nav.offsetHeight + 18 - top) / distance));
+      const p = motionPreference.matches ? 1 : raw;
+      const eased = p * p * (3 - 2 * p);
+      const fit = Math.min(1, (section.clientWidth - 16) / title.offsetWidth);
+      const compact = wideViewport.matches ? .38 : .48;
+      const scale = fit + (compact - fit) * eased;
+      const x = Math.max(0, (section.clientWidth - title.offsetWidth * fit) / 2) * (1 - eased);
+      const rise = Math.max(100, (innerHeight - nav.offsetHeight) * .32);
+      title.style.transform = `translate3d(${x}px,${rise * (1 - eased)}px,0) scale(${scale})`;
+      const appear = Math.max(0, Math.min(1, (p - .22) / .78));
+      body.style.opacity = appear;
+      body.style.transform = `translate3d(0,${(1 - appear) * 48}px,0)`;
+      // Invisible content must not intercept clicks, tab focus or accessibility reading.
+      body.inert = appear < .04;
+      section.style.setProperty('--chapter-progress', eased);
+    });
     const progress = Math.min(1, y / metrics.heroHeight);
     const moving = !motionPreference.matches && wideViewport.matches;
     hero.style.setProperty('--photo-y', moving ? `${progress * 26}px` : '0px');
