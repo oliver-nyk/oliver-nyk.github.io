@@ -40,10 +40,21 @@ body{font-family:var(--sans);font-size:15px;font-weight:400;line-height:1.8;back
   .publication-visual img{transition:transform 1s cubic-bezier(.16,1,.3,1)}
   .paper-links svg{transition:transform .4s cubic-bezier(.16,1,.3,1)}
 }
-.nav-sections a{position:relative;transition:opacity .3s}
-.nav-sections a::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,1,.3,1);opacity:.65}
-.nav-sections a[aria-current]::after,.nav-sections a:hover::after{transform:scaleX(1)}
-.nav-sections a[aria-current]::after{transition:none}
+/* Navigation shares the translucent glass material of the appearance controls. */
+.site-nav{gap:14px;--nav-glass-fill:rgba(255,255,255,.1);--nav-glass-rim:rgba(255,255,255,.3);--nav-glass-shine:rgba(255,255,255,.28);--nav-glass-active:rgba(255,255,255,.18)}
+.site-nav.scrolled{--nav-glass-fill:color-mix(in srgb,var(--panel) 68%,transparent);--nav-glass-rim:var(--line);--nav-glass-shine:rgba(255,255,255,.5);--nav-glass-active:rgba(129,151,169,.16)}
+:root[data-theme="dark"] .site-nav.scrolled{--nav-glass-shine:rgba(255,255,255,.16)}
+.nav-sections{position:relative;isolation:isolate;display:flex;align-items:center;gap:4px;padding:5px;border:1px solid var(--nav-glass-rim);border-radius:999px;background:var(--nav-glass-fill);box-shadow:0 8px 28px rgba(0,0,0,.12),inset 0 1px 0 var(--nav-glass-shine),inset 0 -1px 0 rgba(255,255,255,.07);-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%)}
+.nav-sections::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,var(--nav-glass-shine),transparent 38%,transparent 70%,rgba(255,255,255,.09));opacity:.6;pointer-events:none;z-index:-1}
+.nav-sections a{position:relative;display:flex;align-items:center;justify-content:center;min-height:36px;padding:9px 15px;border:1px solid transparent;border-radius:999px;background:transparent;white-space:nowrap;text-shadow:0 1px 3px rgba(0,0,0,.1);transition:background-color .35s,box-shadow .35s,border-color .35s,transform .35s cubic-bezier(.16,1,.3,1)}
+.nav-sections a::after{display:none}
+.nav-sections a[aria-current]{background:var(--nav-glass-active);border-color:var(--nav-glass-rim);box-shadow:inset 0 1px 0 var(--nav-glass-shine),0 2px 9px rgba(0,0,0,.06)}
+@media(hover:hover){.nav-sections a:hover{background:var(--nav-glass-active);box-shadow:inset 0 1px 0 var(--nav-glass-shine);text-decoration:none;transform:translateY(-1px)}}
+.nav-sections a:active{transform:scale(.96)}
+@media(max-width:800px){.site-nav{gap:10px}.nav-sections{gap:2px;padding:4px}.nav-sections a{padding:9px 11px}}
+@media(max-width:560px){.nav-sections a{min-height:32px;padding:8px;font-size:9px;letter-spacing:.02em}}
+@media(prefers-reduced-transparency:reduce){.nav-sections{background:var(--panel);-webkit-backdrop-filter:none;backdrop-filter:none}.site-nav:not(.scrolled) .nav-sections a{color:var(--ink)!important}.nav-sections::before{display:none}}
+@media(prefers-reduced-motion:reduce){.nav-sections a{transition:none}.nav-sections a:hover,.nav-sections a:active{transform:none}}
 .site-nav::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(var(--reading-progress,0));transform-origin:left;pointer-events:none}
 @media(hover:hover) and (prefers-reduced-motion:no-preference){
   .publication:hover{transform:translateY(-5px)}

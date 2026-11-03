@@ -16,7 +16,7 @@
   document.querySelector('.profile-text').prepend(eyebrow);
   const nav = document.createElement('nav');
   nav.className = 'site-nav';
-  nav.innerHTML = '<a class="wordmark" href="#intro">YN</a><div class="nav-sections"><a href="#intro" data-nav="about"></a><a href="#research" data-nav="research"></a><a href="#publications" data-nav="publications"></a></div>';
+  nav.innerHTML = '<div class="nav-sections"><a href="#intro" data-nav="about"></a><a href="#research" data-nav="research"></a><a href="#publications" data-nav="publications"></a></div>';
   nav.append(document.querySelector('.site-controls'));
   document.body.prepend(nav);
   const research = document.createElement('section');
