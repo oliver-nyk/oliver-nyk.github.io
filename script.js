@@ -68,8 +68,6 @@ wechatDialog.addEventListener('click', (event) => {
     ['.bio p:nth-child(2)', '我的研究兴趣是<strong>机器人学习与操作</strong>，尤其关注高效、可靠的视觉运动模仿学习。我也对强化学习、策略适应与泛化，以及用于长时程操作的视觉-语言-动作模型感兴趣。'],
     ['.bio p:nth-child(3)', '我在清华大学<a href="http://hxu.rocks/" target="_blank" rel="noopener">许华哲教授</a>的课题组从事机器人研究。在 AdaTempo 项目中，我参与了示范数据处理、策略训练、仿真实验和真实机器人评估。'],
     ['.bio p:nth-child(4)', '科研之外，我喜欢做饭，尤其擅长川菜，也喜欢烘焙。我还喜欢打篮球、健身，目前正在学习网球。'],
-    ['.contact span:nth-child(1)', '<a href="mailto:nyk24@mails.tsinghua.edu.cn">nyk24@mails.tsinghua.edu.cn</a>（学术邮箱）'],
-    ['.contact span:nth-child(2)', '<a href="mailto:o14554494@gmail.com">o14554494@gmail.com</a>（个人邮箱）'],
     ['.skip', '跳至正文'],
     ['#publications > h2', '学术论文'],
     ['.section-note', '* 表示共同第一作者'],

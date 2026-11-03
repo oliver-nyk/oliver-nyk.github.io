@@ -40,13 +40,14 @@
     '<path fill="currentColor" d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.29-5.13-1.25-5.13-5.54 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.42.11-2.96 0 0 .95-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.13-1.45 3.08-1.15 3.08-1.15.61 1.54.23 2.68.11 2.96.72.78 1.16 1.78 1.16 3 0 4.3-2.64 5.25-5.15 5.53.4.35.76 1.03.76 2.08v3.11c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/>',
     '<path fill="currentColor" d="M18.9 2H22l-6.8 7.77L23.2 22h-6.3L12 14.58 5.5 22H2.3l8.2-9.37L2.8 2h6.46l4.43 6.77L18.9 2zM17.8 20h1.73L8.3 3.87H6.45z"/>',
     '<path fill="currentColor" d="M9.1 3C4.6 3 1 5.8 1 9.3c0 1.9 1.1 3.7 3 4.9l-.8 2.5 2.9-1.5c.9.3 1.8.4 2.7.4a5.8 5.8 0 0 1-.3-1.8c0-3.6 3.4-6.5 7.6-6.5h.7C15.6 4.8 12.6 3 9.1 3zm-2.7 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm5.2 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/><path fill="currentColor" d="M23 13.8c0-2.9-3-5.2-6.7-5.2s-6.7 2.3-6.7 5.2S12.6 19 16.3 19c.8 0 1.5-.1 2.2-.3l2.4 1.3-.6-2.1c1.7-.9 2.7-2.4 2.7-4.1zm-9-1.7a.85.85 0 1 1 0 1.7.85.85 0 0 1 0-1.7zm4.5 0a.85.85 0 1 1 0 1.7.85.85 0 0 1 0-1.7z"/>'
+    ,'<g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></g>'
   ];
   function decorateProfileLinks(zh) {
     profileLinks.forEach((link, index) => {
-      const label = [zh ? '简历' : 'CV', 'GitHub', 'X', zh ? '微信' : 'WeChat'][index];
+      const label = [zh ? '简历' : 'CV', 'GitHub', 'X', zh ? '微信' : 'WeChat', zh ? '邮件' : 'Mail'][index];
       if (link.querySelector('.social-label')?.textContent === label) return;
       link.classList.add('social-glass');
-      link.setAttribute('aria-label', label);
+      link.setAttribute('aria-label', index === 4 ? `${label}: nyk24@mails.tsinghua.edu.cn` : label);
       link.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${iconPaths[index]}</svg><span class="social-label">${label}</span>`;
     });
   }
