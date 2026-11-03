@@ -8,10 +8,6 @@
   identity.className = 'identity-block';
   identity.append(...content.children);
   content.append(identity);
-  const portrait = document.querySelector('.avatar img');
-  portrait.src = 'autumn-portrait.jpg';
-  portrait.width = 3060;
-  portrait.height = 4080;
   const bio = document.querySelector('.bio');
   const researchCopy = bio.querySelectorAll('p')[1];
   content.append(bio);
@@ -51,9 +47,10 @@
   }
   translateLayout();
   new MutationObserver(translateLayout).observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
-  function updateNav() { nav.classList.toggle('scrolled', window.scrollY > 40); }
+  function updateNav() { nav.classList.toggle('scrolled', window.scrollY > hero.offsetHeight - nav.offsetHeight); }
   updateNav();
   window.addEventListener('scroll', updateNav, {passive:true});
+  window.addEventListener('resize', updateNav);
   // Reveal each card once. Reduced-motion visitors see it immediately.
   if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
