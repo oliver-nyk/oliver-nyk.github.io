@@ -11,9 +11,6 @@
   const bio = document.querySelector('.bio');
   const researchCopy = bio.querySelectorAll('p')[1];
   content.append(bio);
-  const eyebrow = document.createElement('p');
-  eyebrow.className = 'eyebrow';
-  document.querySelector('.profile-text').prepend(eyebrow);
   const nav = document.createElement('nav');
   nav.className = 'site-nav';
   nav.innerHTML = '<div class="nav-sections"><a href="#intro" data-nav="about"></a><a href="#research" data-nav="research"></a><a href="#publications" data-nav="publications"></a></div>';
@@ -82,7 +79,6 @@
     nav.querySelector('[data-nav="about"]').textContent = zh ? '关于我' : 'About';
     nav.querySelector('[data-nav="research"]').textContent = zh ? '研究' : 'Research';
     nav.querySelector('[data-nav="publications"]').textContent = zh ? '论文' : 'Publications';
-    eyebrow.textContent = zh ? '机器人学习 · 机器人操作' : 'Robot Learning · Manipulation';
     research.querySelector('h2').textContent = zh ? '研究方向' : 'Research';
     research.querySelector('.research-lead').textContent = zh ? '我关注如何让机器人通过学习，高效、可靠地与物理世界交互。' : englishLead;
     cue.textContent = zh ? '向下探索 ↓' : 'Explore ↓';
