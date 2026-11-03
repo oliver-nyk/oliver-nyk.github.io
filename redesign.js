@@ -77,9 +77,9 @@
     decorateProfileLinks(zh);
     nav.setAttribute('aria-label', zh ? '主导航' : 'Main navigation');
     nav.querySelector('[data-nav="about"]').textContent = zh ? '关于我' : 'About';
-    nav.querySelector('[data-nav="research"]').textContent = zh ? '研究兴趣' : 'Interest';
+    nav.querySelector('[data-nav="research"]').textContent = zh ? '研究兴趣' : 'Research';
     nav.querySelector('[data-nav="publications"]').textContent = zh ? '论文' : 'Publications';
-    research.querySelector('h2').textContent = zh ? '研究兴趣' : 'Interest';
+    research.querySelector('h2').textContent = zh ? '研究兴趣' : 'Research Interests';
     research.querySelector('.research-lead').textContent = zh ? '我对让机器人操作更高效、更可靠的学习方法感兴趣。' : englishLead;
     cue.textContent = zh ? '向下探索 ↓' : 'Explore ↓';
   }
